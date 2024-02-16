@@ -16,7 +16,7 @@ function EventIntake() {
         // end (or endTime): (exclusive)
     //  }
     
-    const handleChange = (name, value) => {
+    const handleChange = (e) => {
 
         const {name, value} = e.target;
 
