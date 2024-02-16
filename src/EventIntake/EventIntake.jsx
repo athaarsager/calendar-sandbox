@@ -2,7 +2,13 @@ import { useState } from "react";
 
 function EventIntake() {
 
-    const [newEvent, setNewevent] = useState({});
+    const [newEvent, setNewevent] = useState({
+        title: "",
+        start: "",
+        startTime: "",
+        endTime: ""
+    });
+
     // syntax for adding event:
     // calendar.addEvent( event [, source])
     // "event" is a plain object that will be parsed into an Event Object
@@ -23,15 +29,22 @@ function EventIntake() {
         setNewevent((currentInfo) => ({...currentInfo, [name]: value}));
     }
 
+    const addEvent = (e) => {
+        e.preventDefault();
+        calendar.addEvent(newEvent);
+    }
+
     return (
         <div>
-        <form>
-            <label htmlFor="piece-name">Piece</label><br/>
-            <input id="piece-name" name="piece-name" type="text" placeholder="Undertale Variations" /><br/>
-            <label htmlFor="start-time">Start Time:</label><br/>
-            <input id="start-time" name="start-time" type="time" /><br/>
-            <label htmlFor="end-time">End Time:</label><br/>
-            <input id="end-time" name="end-time" type="time" />
+        <form >
+            <label htmlFor="title">Piece</label><br/>
+            <input id="title" name="title" type="text" placeholder="Undertale Variations" value={newEvent.title} onChange={handleChange}/><br/>
+            <label for="start">Date</label><br/>
+            <input id="start" name="start" type="date" value={newEvent.start} onChange={handleChange}/><br/>
+            <label htmlFor="startTime">Start Time:</label><br/>
+            <input id="startTime" name="startTime" type="time" value={newEvent.startTime} onChange={handleChange}/><br/>
+            <label htmlFor="endTime">End Time:</label><br/>
+            <input id="endTime" name="endTime" type="time" value={newEvent.endTime} onChange={handleChange} />
             <input type="submit"/>
         </form>
         </div>
