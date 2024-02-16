@@ -36,10 +36,10 @@ function EventIntake() {
 
     return (
         <div>
-        <form >
+        <form onSubmit={addEvent}>
             <label htmlFor="title">Piece</label><br/>
             <input id="title" name="title" type="text" placeholder="Undertale Variations" value={newEvent.title} onChange={handleChange}/><br/>
-            <label for="start">Date</label><br/>
+            <label htmlFor="start">Date</label><br/>
             <input id="start" name="start" type="date" value={newEvent.start} onChange={handleChange}/><br/>
             <label htmlFor="startTime">Start Time:</label><br/>
             <input id="startTime" name="startTime" type="time" value={newEvent.startTime} onChange={handleChange}/><br/>
