@@ -1,5 +1,8 @@
+import { useState } from "react";
+
 function EventIntake() {
 
+    const [newEvent, setNewevent] = useState({});
     // syntax for adding event:
     // calendar.addEvent( event [, source])
     // "event" is a plain object that will be parsed into an Event Object
@@ -13,6 +16,13 @@ function EventIntake() {
         // end (or endTime): (exclusive)
     //  }
     
+    const handleChange = (name, value) => {
+
+        const {name, value} = e.target;
+
+        setNewevent((currentInfo) => ({...currentInfo, [name]: value}));
+    }
+
     return (
         <div>
         <form>
