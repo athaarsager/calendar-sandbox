@@ -52,10 +52,6 @@ function EventIntake({ selectedDate }) {
                     <input id="start" name="start" type="time" value={newEvent.start} onChange={handleChange} /><br />
                     <label htmlFor="end">End</label><br />
                     <input id="end" name="end" type="time" value={newEvent.end} onChange={handleChange} /><br />
-                    {/* <label htmlFor="startTime">Start Time:</label><br/>
-            <input id="startTime" name="startTime" type="time" value={newEvent.startTime} onChange={handleChange}/><br/>
-            <label htmlFor="endTime">End Time:</label><br/>
-            <input id="endTime" name="endTime" type="time" value={newEvent.endTime} onChange={handleChange} /> */}
                     <input type="submit" />
                 </form>
             </dialog>
