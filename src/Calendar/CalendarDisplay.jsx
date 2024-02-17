@@ -39,6 +39,7 @@ export default function CalendarDisplay() {
           // user will click event to view time
           displayEventTime={false}
           dateClick={selectDate}
+          // This adds the view navigation buttons
           headerToolbar={{
            center: "dayGridMonth timeGridDay"
           }}
