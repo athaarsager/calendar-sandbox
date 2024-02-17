@@ -39,6 +39,9 @@ export default function CalendarDisplay() {
           // user will click event to view time
           displayEventTime={false}
           dateClick={selectDate}
+          headerToolbar={{
+           center: "dayGridMonth timeGridDay"
+          }}
         />
       </div>
   );
