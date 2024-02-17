@@ -7,12 +7,12 @@ function App() {
   const calendarEvents = [];
 
   return (
-    <>
+    <div className='container-container'>
       <CalendarDisplay
         calendarEvents={ calendarEvents } />
       <EventIntake
         calendarEvents={ calendarEvents } />
-    </>
+    </div>
   )
 }
 
