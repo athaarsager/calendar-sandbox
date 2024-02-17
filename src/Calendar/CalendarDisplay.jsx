@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 
 export default function CalendarDisplay() {
 
+  // create reference here. Set it to FullCalendar component (once it's rendered) by passing it to the component as a prop
   const calendarRef = useRef(null);
 
   const calendarEvents = useSelector(store => store.calendarEvents);
@@ -16,6 +17,7 @@ export default function CalendarDisplay() {
   }
 
   const selectDate =  dateClickInfo => {
+    // ref will now reference the FullCalendar component and grant access to its API
     calendarRef.current
       .getApi()
       .changeView("timeGridDay", dateClickInfo.date);
