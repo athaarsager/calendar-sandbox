@@ -4,11 +4,11 @@ import { useDispatch } from "react-redux";
 function EventIntake( {calendarEvents} ) {
     const dispatch = useDispatch();
 
+    // Don't use startTime and endTime because those create a recurring event
     const [newEvent, setNewevent] = useState({
         title: "",
         start: "",
-        startTime: "",
-        endTime: ""
+        end: "",
     });
 
     // syntax for adding event:
@@ -28,12 +28,17 @@ function EventIntake( {calendarEvents} ) {
 
         const {name, value} = e.target;
 
+        // currentInfo is another name for state. maybe just call it state in the future
         setNewevent((currentInfo) => ({...currentInfo, [name]: value}));
+
+        
+
 
     }
 
     const addEvent = (e) => {
         e.preventDefault();
+        alert(JSON.stringify(newEvent));
 
         dispatch({type: "ADD_EVENT", payload: newEvent});
     }
@@ -43,12 +48,14 @@ function EventIntake( {calendarEvents} ) {
         <form onSubmit={addEvent}>
             <label htmlFor="title">Piece</label><br/>
             <input id="title" name="title" type="text" placeholder="Undertale Variations" value={newEvent.title} onChange={handleChange}/><br/>
-            <label htmlFor="start">Date</label><br/>
-            <input id="start" name="start" type="date" value={newEvent.start} onChange={handleChange}/><br/>
-            <label htmlFor="startTime">Start Time:</label><br/>
+            <label htmlFor="start">Start</label><br/>
+            <input id="start" name="start" type="datetime-local" value={newEvent.start} onChange={handleChange}/><br/>
+            <label htmlFor="end">End</label><br/>
+            <input id="end" name="end" type="datetime-local" value={newEvent.end} onChange={handleChange}/><br/>
+            {/* <label htmlFor="startTime">Start Time:</label><br/>
             <input id="startTime" name="startTime" type="time" value={newEvent.startTime} onChange={handleChange}/><br/>
             <label htmlFor="endTime">End Time:</label><br/>
-            <input id="endTime" name="endTime" type="time" value={newEvent.endTime} onChange={handleChange} />
+            <input id="endTime" name="endTime" type="time" value={newEvent.endTime} onChange={handleChange} /> */}
             <input type="submit"/>
         </form>
         </div>

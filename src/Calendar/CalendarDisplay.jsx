@@ -1,14 +1,16 @@
-import React from 'react'
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import React from 'react';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import { useSelector } from 'react-redux';
+
 
 export default function CalendarDisplay() {
   
     const calendarEvents = useSelector(store => store.calendarEvents);
-    useEffect(() => {
-    });
+    const displayEvent = (eventInfo) => {
+      alert(JSON.stringify(eventInfo.event.title));
+    }
+   
     return (
       // Calendar will always take up its entire container width 
       // Can manually set height via props
@@ -19,7 +21,8 @@ export default function CalendarDisplay() {
           plugins={[dayGridPlugin,]}
           initialView="dayGridMonth"
           events={calendarEvents}
-          
+          eventClick={displayEvent}
+
         />
       </div>
     );
