@@ -1,15 +1,25 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-function EventIntake({ selectedDate }) {
+function EventIntake({ selectedDate, isNewEvent }) {
     const dispatch = useDispatch();
-
+    const createdEvents = useSelector(store => store.calendarEvents);
+    const newestEvent = createdEvents[createdEvents.length-1];
     // Don't use startTime and endTime because those create a recurring event
-    const [newEvent, setNewevent] = useState({
+    const [newEvent, setNewEvent] = isNewEvent ? useState({
         title: "",
         start: "",
         end: "",
+    }) : useState({
+            title: newestEvent.title,
+            start: newestEvent.start,
+            end: newestEvent.end
     });
+
+    // const newestEvent = useSelector(store => store.calendarEvents);
+    // const [newEvent, setNewEvent] = 
+    // })
+
 
     // event object can contain keys such as the following (more can be found at: https://fullcalendar.io/docs/event-parsing ):
     // {

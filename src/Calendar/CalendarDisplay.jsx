@@ -11,6 +11,7 @@ import EventIntake from '../EventIntake/EventIntake';
 export default function CalendarDisplay() {
 
   const [selectedDate, setSelectedDate] = useState("");
+  const [isNewEvent, setIsNewEvent] = useState(true);
 
   // create reference here. Set it to FullCalendar component (once it's rendered) by passing it to the component as a prop
   const calendarRef = useRef(null);
@@ -75,7 +76,7 @@ export default function CalendarDisplay() {
         }
       />
       {dayView && <button onClick={displayModal}>Add Event</button>}
-        <EventIntake selectedDate={selectedDate} />
+        <EventIntake selectedDate={selectedDate} isNewEvent={isNewEvent}/>
     </div>
   );
 
