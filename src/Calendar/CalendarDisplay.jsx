@@ -16,7 +16,6 @@ export default function CalendarDisplay() {
   const calendarRef = useRef(null);
 
   const [dayView, setDayView] = useState(false);
-  const [displayForm, setDisplayForm] = useState(false);
 
   const calendarEvents = useSelector(store => store.calendarEvents);
   const displayEvent = (eventInfo) => {
@@ -39,10 +38,10 @@ export default function CalendarDisplay() {
     }
   }
 
+
   const displayModal = () => {
-    setDisplayForm(true);
-        const dialog = document.querySelector("dialog");
-        dialog.showModal();
+    const dialog = document.querySelector("dialog");
+    dialog.showModal();
   }
 
   return (
@@ -76,9 +75,7 @@ export default function CalendarDisplay() {
         }
       />
       {dayView && <button onClick={displayModal}>Add Event</button>}
-      {displayForm &&
         <EventIntake selectedDate={selectedDate} />
-      }
     </div>
   );
 

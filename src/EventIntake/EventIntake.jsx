@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 function EventIntake({ selectedDate }) {
@@ -30,18 +30,15 @@ function EventIntake({ selectedDate }) {
 
     const addEvent = (e) => {
         e.preventDefault();
-        alert(JSON.stringify(newEvent));
-        alert(selectedDate + newEvent.end);
         const payload = {
             title: newEvent.title,
             start: selectedDate + "T" + newEvent.start,
             end: selectedDate + "T" + newEvent.end
         }
-        alert(JSON.stringify(payload));
 
         dispatch({ type: "ADD_EVENT", payload });
 
-        const dialog=document.querySelector("dialog");
+        const dialog = document.querySelector("dialog");
         dialog.close();
     }
 
