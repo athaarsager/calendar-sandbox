@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 function EventIntake( {calendarEvents} ) {
+    const dispatch = useDispatch();
 
     const [newEvent, setNewevent] = useState({
         title: "",
@@ -28,14 +30,12 @@ function EventIntake( {calendarEvents} ) {
 
         setNewevent((currentInfo) => ({...currentInfo, [name]: value}));
 
-        calendarEvents.push(newEvent);
     }
 
     const addEvent = (e) => {
         e.preventDefault();
-        // need to figure out what "calendar" should refer to...
-        // maybe create an array of objects instead and give that array to my calendar component as a prop
-        calendar.addEvent(newEvent);
+
+        dispatch({type: "ADD_EVENT", payload: newEvent});
     }
 
     return (
