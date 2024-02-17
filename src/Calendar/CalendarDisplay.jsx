@@ -5,6 +5,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // need this for dateClick
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import EventIntake from '../EventIntake/EventIntake';
 
 
 export default function CalendarDisplay() {
@@ -13,6 +14,7 @@ export default function CalendarDisplay() {
   const calendarRef = useRef(null);
 
   const [dayView, setDayView] = useState(false);
+  const [displayForm, setDisplayForm] = useState(false);
 
   const calendarEvents = useSelector(store => store.calendarEvents);
   const displayEvent = (eventInfo) => {
@@ -24,15 +26,15 @@ export default function CalendarDisplay() {
 
     if (dayView) {
       calendarRef.current
-      .getApi()
-      .changeView("dayGridMonth");
+        .getApi()
+        .changeView("dayGridMonth");
       setDayView(false);
     } else {
 
-    calendarRef.current
-      .getApi()
-      .changeView("timeGridDay", dateClickInfo.date);
-    setDayView(true);
+      calendarRef.current
+        .getApi()
+        .changeView("timeGridDay", dateClickInfo.date);
+      setDayView(true);
     }
   }
 
@@ -47,23 +49,34 @@ export default function CalendarDisplay() {
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         events={calendarEvents}
-        eventClick={switchView}
+        eventClick={displayEvent}
         // making the time display false here because it messes up the display if the event is on a Saturday
         // user will click event to view time
         displayEventTime={false}
         dateClick={switchView}
         // Creates custom button that I can use to toggle calendar view
         // has clearer text than the built-in button and lets me toggle the boolean used for conditional rendering
-        customButtons={{viewButton: {
-          text: "Full Calendar",
-          click: switchView
-        }}}
+        customButtons={{
+          viewButton: {
+            text: "Full Calendar",
+            click: switchView
+          }
+        }}
         // This adds the view navigation buttons
         headerToolbar={dayView ?
-          { center: "viewButton"} :
+          { center: "viewButton" } :
           {}
         }
       />
+      {dayView && <button onClick={() =>{
+        setDisplayForm(true);
+        const dialog = document.querySelector("dialog");
+        dialog.showModal();
+        }}>Add Event</button>}
+      {displayForm &&
+        
+          <EventIntake />
+        }
     </div>
   );
 

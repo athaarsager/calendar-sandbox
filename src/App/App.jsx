@@ -9,9 +9,8 @@ function App() {
   return (
     <div className='container-container'>
       <CalendarDisplay
-        calendarEvents={ calendarEvents } />
-      <EventIntake
-        calendarEvents={ calendarEvents } />
+        />
+      {/* <EventIntake /> */}
     </div>
   )
 }
