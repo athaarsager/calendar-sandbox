@@ -4,10 +4,14 @@ import EventIntake from '../EventIntake/EventIntake';
 
 function App() {
 
+  const calendarEvents = [];
+
   return (
     <>
-      <CalendarDisplay />
-      <EventIntake />
+      <CalendarDisplay
+        calendarEvents={ calendarEvents } />
+      <EventIntake
+        calendarEvents={ calendarEvents } />
     </>
   )
 }

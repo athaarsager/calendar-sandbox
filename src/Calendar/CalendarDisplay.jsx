@@ -13,7 +13,7 @@ export default class CalendarDisplay extends React.Component {
         <FullCalendar
           plugins={[dayGridPlugin,]}
           initialView="dayGridMonth"
-          // height="50vh"
+          events={calendarEvents}
         />
       </div>
     )
