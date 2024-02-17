@@ -6,11 +6,11 @@ function EventIntake({ selectedDate, isNewEvent }) {
     const createdEvents = useSelector(store => store.calendarEvents);
     const newestEvent = createdEvents[createdEvents.length-1];
     // Don't use startTime and endTime because those create a recurring event
-    const [newEvent, setNewEvent] = isNewEvent ? useState({
+    const [newEvent, setNewEvent] =  useState(isNewEvent ? {
         title: "",
         start: "",
         end: "",
-    }) : useState({
+    } : {
             title: newestEvent.title,
             start: newestEvent.start,
             end: newestEvent.end
@@ -34,7 +34,7 @@ function EventIntake({ selectedDate, isNewEvent }) {
         const { name, value } = e.target;
 
         // currentInfo is another name for state. maybe just call it state in the future
-        setNewevent((currentInfo) => ({ ...currentInfo, [name]: value }));
+        setNewEvent((currentInfo) => ({ ...currentInfo, [name]: value }));
 
     }
 
