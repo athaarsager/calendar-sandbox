@@ -10,6 +10,8 @@ import EventIntake from '../EventIntake/EventIntake';
 
 export default function CalendarDisplay() {
 
+  const [selectedDate, setSelectedDate] = useState("");
+
   // create reference here. Set it to FullCalendar component (once it's rendered) by passing it to the component as a prop
   const calendarRef = useRef(null);
 
@@ -23,19 +25,24 @@ export default function CalendarDisplay() {
 
   const switchView = dateClickInfo => {
     // ref will now reference the FullCalendar component and grant access to its API
-
     if (dayView) {
       calendarRef.current
         .getApi()
         .changeView("dayGridMonth");
       setDayView(false);
     } else {
-
       calendarRef.current
         .getApi()
         .changeView("timeGridDay", dateClickInfo.date);
       setDayView(true);
+      setSelectedDate(dateClickInfo.dateStr);
     }
+  }
+
+  const displayModal = () => {
+    setDisplayForm(true);
+        const dialog = document.querySelector("dialog");
+        dialog.showModal();
   }
 
   return (
@@ -68,15 +75,10 @@ export default function CalendarDisplay() {
           {}
         }
       />
-      {dayView && <button onClick={() =>{
-        setDisplayForm(true);
-        const dialog = document.querySelector("dialog");
-        dialog.showModal();
-        }}>Add Event</button>}
+      {dayView && <button onClick={displayModal}>Add Event</button>}
       {displayForm &&
-        
-          <EventIntake />
-        }
+        <EventIntake selectedDate={selectedDate} />
+      }
     </div>
   );
 

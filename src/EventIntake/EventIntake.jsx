@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-function EventIntake({ calendarEvents }) {
+function EventIntake({ selectedDate }) {
     const dispatch = useDispatch();
 
     // Don't use startTime and endTime because those create a recurring event
@@ -10,11 +10,6 @@ function EventIntake({ calendarEvents }) {
         start: "",
         end: "",
     });
-
-    // syntax for adding event:
-    // calendar.addEvent( event [, source])
-    // "event" is a plain object that will be parsed into an Event Object
-    // source is optional
 
     // event object can contain keys such as the following (more can be found at: https://fullcalendar.io/docs/event-parsing ):
     // {
@@ -31,16 +26,21 @@ function EventIntake({ calendarEvents }) {
         // currentInfo is another name for state. maybe just call it state in the future
         setNewevent((currentInfo) => ({ ...currentInfo, [name]: value }));
 
-
-
-
     }
 
     const addEvent = (e) => {
         e.preventDefault();
         alert(JSON.stringify(newEvent));
+        alert(selectedDate + newEvent.end);
+        const payload = {
+            title: newEvent.title,
+            start: selectedDate + "T" + newEvent.start,
+            end: selectedDate + "T" + newEvent.end
+        }
+        alert(JSON.stringify(payload));
 
-        dispatch({ type: "ADD_EVENT", payload: newEvent });
+        dispatch({ type: "ADD_EVENT", payload });
+
         const dialog=document.querySelector("dialog");
         dialog.close();
     }
@@ -52,9 +52,9 @@ function EventIntake({ calendarEvents }) {
                     <label htmlFor="title">Piece</label><br />
                     <input id="title" name="title" type="text" placeholder="Undertale Variations" value={newEvent.title} onChange={handleChange} /><br />
                     <label htmlFor="start">Start</label><br />
-                    <input id="start" name="start" type="datetime-local" value={newEvent.start} onChange={handleChange} /><br />
+                    <input id="start" name="start" type="time" value={newEvent.start} onChange={handleChange} /><br />
                     <label htmlFor="end">End</label><br />
-                    <input id="end" name="end" type="datetime-local" value={newEvent.end} onChange={handleChange} /><br />
+                    <input id="end" name="end" type="time" value={newEvent.end} onChange={handleChange} /><br />
                     {/* <label htmlFor="startTime">Start Time:</label><br/>
             <input id="startTime" name="startTime" type="time" value={newEvent.startTime} onChange={handleChange}/><br/>
             <label htmlFor="endTime">End Time:</label><br/>
