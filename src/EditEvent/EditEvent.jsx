@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 
-function EditEvent({ selectedDate }) {
+function EditEvent({ }) {
     const dispatch = useDispatch();
     const selectedEvent = useSelector(store => store.selectedEvent);
     // Don't use startTime and endTime because those create a recurring event
     const [editedEvent, setEditedEvent] = useState({
         title: selectedEvent.title,
+        // This line seems to be giving me the "component changing from uncontrolled to controlled" warning, but can't figure out what's causing it...
+        date: Object.keys(selectedEvent).length !== 0 ? JSON.stringify(selectedEvent.start).split("T")[0].slice(1) : "2024-01-01",
         start: selectedEvent.start,
         end: selectedEvent.end
     });
@@ -68,13 +70,15 @@ function EditEvent({ selectedDate }) {
         // dialog.showModal();
         // Insert GET request here
         // not this:
-        if (Object.keys(selectedEvent).length !== 0) {
+        if (Object.keys(selectedEvent).length !== 0) {  
             
             setEditedEvent({
                 title: selectedEvent.title,
+                date: JSON.stringify(selectedEvent.start).split("T")[0].slice(1),
                 start: formatTime(selectedEvent.start),
                 end: formatTime(selectedEvent.end)
             });
+
         }   
         //
         // This almost fixes it. Takes two clicks, but it does update
@@ -83,9 +87,12 @@ function EditEvent({ selectedDate }) {
     return (
         <div>
             <dialog id="edit">
-                <form onSubmit={(e) => e.preventDefault() }>
+                <form onSubmit={(e) => e.preventDefault()}>
                     <label htmlFor="title">Piece</label><br />
                     <input id="title" name="title" type="text" placeholder="Piece to Practice" value={editedEvent.title} onChange={handleChange} /><br />
+                    {/* May want to always render an input for date so it can be changed */}
+                    <label htmlFor="date">Date</label><br/>
+                    <input id="date" name="date" type="date" value={editedEvent.date} onChange={handleChange} /><br/>
                     <label htmlFor="start">Start</label><br />
                     <input id="start" name="start" type="time" value={editedEvent.start} onChange={handleChange} /><br />
                     <label htmlFor="end">End</label><br />

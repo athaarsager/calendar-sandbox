@@ -9,6 +9,7 @@ function EventIntake({ selectedDate }) {
     // Don't use startTime and endTime because those create a recurring event
     const [newEvent, setNewEvent] =  useState({
         title: "",
+        date: selectedDate ? selectedDate : "",
         start: "",
         end: ""
     });
@@ -34,6 +35,7 @@ function EventIntake({ selectedDate }) {
         e.preventDefault();
         const payload = {
             title: newEvent.title,
+            date: selectedDate ? selectedDate : "",
             start: selectedDate + "T" + newEvent.start,
             end: selectedDate + "T" + newEvent.end
         }
@@ -41,6 +43,7 @@ function EventIntake({ selectedDate }) {
         dispatch({ type: "ADD_EVENT", payload });
         setNewEvent({
             title: "",
+            date: selectedDate ? selectedDate : "",
             start: "",
             end: "",
         } );
@@ -48,13 +51,15 @@ function EventIntake({ selectedDate }) {
         dialog.close();
     }
 
-
     return (
         <div>
             <dialog>
                 <form onSubmit={addEvent}>
                     <label htmlFor="title">Piece</label><br />
                     <input id="title" name="title" type="text" placeholder="Piece to Practice" value={newEvent.title} onChange={handleChange} /><br />
+                    {/* Need some conditioinal rendering here if piece is not added from calendar day screen. Something like: */}
+                    {/* !selectedEvent && */}
+                    {/* insert label and input for date here */}
                     <label htmlFor="start">Start</label><br />
                     <input id="start" name="start" type="time" value={newEvent.start} onChange={handleChange} /><br />
                     <label htmlFor="end">End</label><br />
