@@ -14,7 +14,6 @@ export default function CalendarDisplay() {
   const dispatch = useDispatch();
 
   const [selectedDate, setSelectedDate] = useState("");
-  const [isNewEvent, setIsNewEvent] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState({});
 
   // create reference here. Set it to FullCalendar component (once it's rendered) by passing it to the component as a prop
@@ -22,15 +21,14 @@ export default function CalendarDisplay() {
 
   const [dayView, setDayView] = useState(false);
 
-  const [key, setKey] = useState(0);
+  // const [key, setKey] = useState(0);
 
   const calendarEvents = useSelector(store => store.calendarEvents);
 
   const viewEventDetails = (eventInfo) => {
-    setIsNewEvent(false);
     setSelectedEvent(eventInfo.event);
     dispatch({type: "SET_EVENT", payload: selectedEvent});
-    const dialog = document.querySelector("dialog");
+    const dialog = document.getElementById("edit");
     dialog.showModal();
     //setKey(key + 1);
   }
@@ -53,7 +51,6 @@ export default function CalendarDisplay() {
   }
 
   const displayModal = () => {
-    setIsNewEvent(true);
     const dialog = document.querySelector("dialog");
     dialog.showModal();
     //setKey(key + 1);

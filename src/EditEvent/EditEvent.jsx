@@ -50,23 +50,36 @@ function EditEvent({ selectedDate }) {
     //     dialog.close();
     // }
 
+    const formatTime = (input) => {
+        const hours = JSON.stringify(input).split("T")[1].substring(0, 2);
+        //alert(`startHours: ${startHours}`);
+        const minutes = JSON.stringify(input).split("T")[1].substring(3, 5);
+        //alert(`startMinutes: ${startMinutes}`);
+        const decimal = (parseFloat(`${hours}.${minutes}`) - 6).toFixed(2);
+        //alert(`This is the decimalStart: ${decimal}`);
+        const formattedTime = decimal.split(".")[0] + ":" + decimal.split(".")[1];
+        //alert(`formattedStart: ${formattedStart}`);
+        return formattedTime;
+    }
+
     useEffect(() => {
-        alert(`Stringification of selectedEvent.start: ${JSON.stringify(selectedEvent.start)}`);
+        alert(`This is the selected event:${JSON.stringify(selectedEvent)}`);
+        //alert(`Stringification of selectedEvent.start: ${JSON.stringify(selectedEvent.start)}`);
         if (Object.keys(selectedEvent).length !== 0) {
-            alert(`This is a portion of the string: ${JSON.stringify(selectedEvent.start).split("T")[1].substring(0, 5)}`)//.split("T")[1].split(".")[0]);
+            //alert(`This is a portion of the string: ${JSON.stringify(selectedEvent.start).split("T")[1].substring(0, 5)}`)
+            
             setEditedEvent({
                 title: selectedEvent.title,
-                start: JSON.stringify(selectedEvent.start).split("T")[1].substring(0, 5),
-                end: JSON.stringify(selectedEvent.end).split("T")[1].substring(0, 5)
+                start: formatTime(selectedEvent.start),
+                end: formatTime(selectedEvent.end)
             });
-            alert(`This is the selected event:${JSON.stringify(selectedEvent)}`);
         }   // This almost fixes it. Takes two clicks, but it does update
     }, [selectedEvent]);
 
     return (
         <div>
-            <dialog>
-                <form>
+            <dialog id="edit">
+                <form >
                     <label htmlFor="title">Piece</label><br />
                     <input id="title" name="title" type="text" placeholder="Undertale Variations" value={editedEvent.title} onChange={handleChange} /><br />
                     <label htmlFor="start">Start</label><br />
