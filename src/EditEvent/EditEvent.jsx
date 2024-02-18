@@ -57,8 +57,11 @@ function EditEvent({ }) {
         //alert(`startHours: ${startHours}`);
         const minutes = JSON.stringify(input).split("T")[1].substring(3, 5);
         //alert(`startMinutes: ${startMinutes}`);
-        const decimal = (parseFloat(`${hours}.${minutes}`) - 6).toFixed(2);
-        //alert(`This is the decimalStart: ${decimal}`);
+        let decimal = (parseFloat(`${hours}.${minutes}`) - 6).toFixed(2);
+        if(parseFloat(decimal) < 0) {
+            decimal = (parseFloat(decimal) + 24).toFixed(2);
+            decimal = String(decimal);
+        }
         const formattedTime = decimal.split(".")[0] + ":" + decimal.split(".")[1];
         //alert(`formattedStart: ${formattedStart}`);
         return formattedTime;
