@@ -12,6 +12,7 @@ export default function CalendarDisplay() {
 
   const [selectedDate, setSelectedDate] = useState("");
   const [isNewEvent, setIsNewEvent] = useState(true);
+  const [selectedEvent, setSelectedEvent] = useState({});
 
   // create reference here. Set it to FullCalendar component (once it's rendered) by passing it to the component as a prop
   const calendarRef = useRef(null);
@@ -23,7 +24,7 @@ export default function CalendarDisplay() {
   const viewEventDetails = (eventInfo) => {
     alert(JSON.stringify(eventInfo.event));
     setIsNewEvent(false);
-    alert(`isNewEvent: ${isNewEvent}`);
+    setSelectedEvent(eventInfo.event);
     const dialog = document.querySelector("dialog");
     dialog.showModal();
   }
@@ -83,7 +84,7 @@ export default function CalendarDisplay() {
         }
       />
       {dayView && <button onClick={displayModal}>Add Event</button>}
-        <EventIntake selectedDate={selectedDate} isNewEvent={isNewEvent}/>
+        <EventIntake selectedDate={selectedDate} selectedEvent={selectedEvent} isNewEvent={isNewEvent} />
     </div>
   );
 

@@ -2,15 +2,14 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 
-function EventIntake({ selectedDate, isNewEvent }) {
+function EventIntake({ selectedDate, selectedEvent, isNewEvent }) {
     const dispatch = useDispatch();
     const createdEvents = useSelector(store => store.calendarEvents);
-    const newestEvent = createdEvents[createdEvents.length-1];
     // Don't use startTime and endTime because those create a recurring event
     const [newEvent, setNewEvent] =  useState({
-        title: isNewEvent ? "" : newestEvent.title,
-        start: isNewEvent ? "" : newestEvent.start,
-        end: isNewEvent ? "" : newestEvent.end
+        title: isNewEvent ? "" : selectedEvent.title,
+        start: isNewEvent ? "" : selectedEvent.start,
+        end: isNewEvent ? "" : selectedEvent.end
     });
 
     // const newestEvent = useSelector(store => store.calendarEvents);
@@ -54,12 +53,17 @@ function EventIntake({ selectedDate, isNewEvent }) {
     }
 
     useEffect(() => {
+        alert(Object.keys(selectedEvent).length);
+        alert(`Stringification of selectedEvent.start: ${JSON.stringify(selectedEvent.start)}`);
+        if (Object.keys(selectedEvent).length !== 0) {
+        alert(`This is a portion of the string: ${JSON.stringify(selectedEvent.start).split("T")[1].substring(0, 5)}`)//.split("T")[1].split(".")[0]);
         setNewEvent({
-            title: isNewEvent ? "" : newestEvent.title,
-            start: isNewEvent ? "" : newestEvent.start.split("T")[1],
-            end: isNewEvent ? "" : newestEvent.end.split("T")[1]
+            title: isNewEvent ? "" : selectedEvent.title,
+            start: isNewEvent ? "" : JSON.stringify(selectedEvent.start).split("T")[1].substring(0, 5),//[1].split("Z")[0],//.substring(12, 20),//.split("T")[1],
+            end: isNewEvent ? "" : JSON.stringify(selectedEvent.end).split("T")[1].substring(0, 5)//[1].split("Z")[0]
         });
-        alert(`This is the newest event:${JSON.stringify(newestEvent)}`);
+        alert(`This is the selected event:${JSON.stringify(selectedEvent)}`);
+    }
     }, [isNewEvent]);
 
     return (
@@ -78,5 +82,7 @@ function EventIntake({ selectedDate, isNewEvent }) {
         </div>
     );
 }
+
+//{"allDay": false, "title":"Undertale Variations", "start":"2024-02-22T"}
 
 export default EventIntake;
