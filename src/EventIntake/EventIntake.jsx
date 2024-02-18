@@ -56,6 +56,7 @@ function EventIntake({ selectedDate }) {
             <dialog>
                 <form onSubmit={addEvent}>
                     <label htmlFor="title">Piece</label><br />
+                    {/* Need to make this a dropdown */}
                     <input id="title" name="title" type="text" placeholder="Piece to Practice" value={newEvent.title} onChange={handleChange} /><br />
                     {/* Need some conditioinal rendering here if piece is not added from calendar day screen. Something like: */}
                     {/* !selectedEvent && */}

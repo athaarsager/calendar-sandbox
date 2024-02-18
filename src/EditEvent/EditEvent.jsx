@@ -92,6 +92,7 @@ function EditEvent({ }) {
             <dialog id="edit">
                 <form onSubmit={(e) => e.preventDefault()}>
                     <label htmlFor="title">Piece</label><br />
+                    {/* Need to make this a dropdown */}
                     <input id="title" name="title" type="text" placeholder="Piece to Practice" value={editedEvent.title} onChange={handleChange} /><br />
                     {/* May want to always render an input for date so it can be changed */}
                     <label htmlFor="date">Date</label><br/>
