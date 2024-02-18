@@ -54,7 +54,7 @@ function EventIntake({ selectedDate }) {
             <dialog>
                 <form onSubmit={addEvent}>
                     <label htmlFor="title">Piece</label><br />
-                    <input id="title" name="title" type="text" placeholder="Undertale Variations" value={newEvent.title} onChange={handleChange} /><br />
+                    <input id="title" name="title" type="text" placeholder="Piece to Practice" value={newEvent.title} onChange={handleChange} /><br />
                     <label htmlFor="start">Start</label><br />
                     <input id="start" name="start" type="time" value={newEvent.start} onChange={handleChange} /><br />
                     <label htmlFor="end">End</label><br />

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 function EditEvent({ selectedDate }) {
     const dispatch = useDispatch();
-    const createdEvents = useSelector(store => store.calendarEvents);
     const selectedEvent = useSelector(store => store.selectedEvent);
     // Don't use startTime and endTime because those create a recurring event
     const [editedEvent, setEditedEvent] = useState({
@@ -50,6 +49,7 @@ function EditEvent({ selectedDate }) {
     //     dialog.close();
     // }
 
+    // This function may or may not be necessary in the final version
     const formatTime = (input) => {
         const hours = JSON.stringify(input).split("T")[1].substring(0, 2);
         //alert(`startHours: ${startHours}`);
@@ -63,30 +63,35 @@ function EditEvent({ selectedDate }) {
     }
 
     useEffect(() => {
-        alert(`This is the selected event:${JSON.stringify(selectedEvent)}`);
-        //alert(`Stringification of selectedEvent.start: ${JSON.stringify(selectedEvent.start)}`);
+        // Use this code in the final version:
+        // const dialog=document.querySelector("dialog");
+        // dialog.showModal();
+        // Insert GET request here
+        // not this:
         if (Object.keys(selectedEvent).length !== 0) {
-            //alert(`This is a portion of the string: ${JSON.stringify(selectedEvent.start).split("T")[1].substring(0, 5)}`)
             
             setEditedEvent({
                 title: selectedEvent.title,
                 start: formatTime(selectedEvent.start),
                 end: formatTime(selectedEvent.end)
             });
-        }   // This almost fixes it. Takes two clicks, but it does update
+        }   
+        //
+        // This almost fixes it. Takes two clicks, but it does update
     }, [selectedEvent]);
 
     return (
         <div>
             <dialog id="edit">
-                <form >
+                <form onSubmit={(e) => e.preventDefault() }>
                     <label htmlFor="title">Piece</label><br />
-                    <input id="title" name="title" type="text" placeholder="Undertale Variations" value={editedEvent.title} onChange={handleChange} /><br />
+                    <input id="title" name="title" type="text" placeholder="Piece to Practice" value={editedEvent.title} onChange={handleChange} /><br />
                     <label htmlFor="start">Start</label><br />
                     <input id="start" name="start" type="time" value={editedEvent.start} onChange={handleChange} /><br />
                     <label htmlFor="end">End</label><br />
                     <input id="end" name="end" type="time" value={editedEvent.end} onChange={handleChange} /><br />
-                    <input type="submit" />
+                    <button type="submit">Submit Changes</button>
+                    <button type="button">Delete Event</button>
                 </form>
             </dialog>
         </div>

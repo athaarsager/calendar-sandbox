@@ -21,16 +21,16 @@ export default function CalendarDisplay() {
 
   const [dayView, setDayView] = useState(false);
 
-  // const [key, setKey] = useState(0);
-
   const calendarEvents = useSelector(store => store.calendarEvents);
 
   const viewEventDetails = (eventInfo) => {
     setSelectedEvent(eventInfo.event);
     dispatch({type: "SET_EVENT", payload: selectedEvent});
+    // In final version, the dispatch above will be to a saga
+    // Then will useHistory here to push to the EditEvent component
+    // Will then put the showModal in the useEffect of EditEvent
     const dialog = document.getElementById("edit");
     dialog.showModal();
-    //setKey(key + 1);
   }
 
   const switchView = dateClickInfo => {
@@ -47,18 +47,12 @@ export default function CalendarDisplay() {
       setDayView(true);
       setSelectedDate(dateClickInfo.dateStr);
     }
-    //setKey(key + 1);
   }
 
   const displayModal = () => {
     const dialog = document.querySelector("dialog");
     dialog.showModal();
-    //setKey(key + 1);
   }
-
-  // useEffect(() => {
-
-  // }, [key]);
 
   return (
     // Calendar will always take up its entire container width 
