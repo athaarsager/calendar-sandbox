@@ -84,7 +84,7 @@ export default function CalendarDisplay() {
           {}
         }
       />
-      {dayView && <button onClick={displayModal}>Add Event</button>}
+      {dayView && <button onClick={displayModal}>Add Practice Session</button>}
       <EventIntake /*key={key}*/ selectedDate={selectedDate} />
       {/* <EventIntake selectedDate={selectedDate} selectedEvent={selectedEvent} isNewEvent={isNewEvent} /> */}
       <EditEvent selectedDate={selectedDate}/>
