@@ -19,8 +19,13 @@ export default function CalendarDisplay() {
   const [dayView, setDayView] = useState(false);
 
   const calendarEvents = useSelector(store => store.calendarEvents);
-  const displayEvent = (eventInfo) => {
-    alert(eventInfo.event.start);
+
+  const viewEventDetails = (eventInfo) => {
+    //alert(JSON.stringify(eventInfo.event));
+    setIsNewEvent(false);
+    alert(`isNewEvent: ${isNewEvent}`);
+    const dialog = document.querySelector("dialog");
+    dialog.showModal();
   }
 
   const switchView = dateClickInfo => {
@@ -41,6 +46,8 @@ export default function CalendarDisplay() {
 
 
   const displayModal = () => {
+    setIsNewEvent(true);
+    alert(`isNewEvent:${isNewEvent}`);
     const dialog = document.querySelector("dialog");
     dialog.showModal();
   }
@@ -56,7 +63,7 @@ export default function CalendarDisplay() {
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         events={calendarEvents}
-        eventClick={displayEvent}
+        eventClick={viewEventDetails}
         // making the time display false here because it messes up the display if the event is on a Saturday
         // user will click event to view time
         displayEventTime={false}

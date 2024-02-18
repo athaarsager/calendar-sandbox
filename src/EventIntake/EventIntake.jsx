@@ -1,19 +1,16 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+
 function EventIntake({ selectedDate, isNewEvent }) {
     const dispatch = useDispatch();
     const createdEvents = useSelector(store => store.calendarEvents);
     const newestEvent = createdEvents[createdEvents.length-1];
     // Don't use startTime and endTime because those create a recurring event
-    const [newEvent, setNewEvent] =  useState(isNewEvent ? {
-        title: "",
-        start: "",
-        end: "",
-    } : {
-            title: newestEvent.title,
-            start: newestEvent.start,
-            end: newestEvent.end
+    const [newEvent, setNewEvent] =  useState({
+        title: isNewEvent ? "" : newestEvent.title,
+        start: isNewEvent ? "" : newestEvent.start,
+        end: isNewEvent ? "" : newestEvent.end
     });
 
     // const newestEvent = useSelector(store => store.calendarEvents);
@@ -47,10 +44,23 @@ function EventIntake({ selectedDate, isNewEvent }) {
         }
 
         dispatch({ type: "ADD_EVENT", payload });
-
+        setNewEvent({
+            title: "",
+            start: "",
+            end: "",
+        } );
         const dialog = document.querySelector("dialog");
         dialog.close();
     }
+
+    useEffect(() => {
+        setNewEvent({
+            title: isNewEvent ? "" : newestEvent.title,
+            start: isNewEvent ? "" : newestEvent.start,
+            end: isNewEvent ? "" : newestEvent.end
+        });
+        alert("This is the newest event:", JSON.stringify(newestEvent));
+    }, [isNewEvent]);
 
     return (
         <div>
