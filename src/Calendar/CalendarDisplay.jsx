@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -6,9 +6,11 @@ import interactionPlugin from "@fullcalendar/interaction"; // need this for date
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import EventIntake from '../EventIntake/EventIntake';
+import { useDispatch } from 'react-redux';
 
 
 export default function CalendarDisplay() {
+  const dispatch = useDispatch();
 
   const [selectedDate, setSelectedDate] = useState("");
   const [isNewEvent, setIsNewEvent] = useState(true);
@@ -19,14 +21,17 @@ export default function CalendarDisplay() {
 
   const [dayView, setDayView] = useState(false);
 
+  const [key, setKey] = useState(0);
+
   const calendarEvents = useSelector(store => store.calendarEvents);
 
   const viewEventDetails = (eventInfo) => {
-    alert(JSON.stringify(eventInfo.event));
     setIsNewEvent(false);
     setSelectedEvent(eventInfo.event);
+    dispatch({type: "SET_EVENT", payload: selectedEvent});
     const dialog = document.querySelector("dialog");
     dialog.showModal();
+    //setKey(key + 1);
   }
 
   const switchView = dateClickInfo => {
@@ -43,15 +48,19 @@ export default function CalendarDisplay() {
       setDayView(true);
       setSelectedDate(dateClickInfo.dateStr);
     }
+    //setKey(key + 1);
   }
-
 
   const displayModal = () => {
     setIsNewEvent(true);
-    alert(`isNewEvent:${isNewEvent}`);
     const dialog = document.querySelector("dialog");
     dialog.showModal();
+    //setKey(key + 1);
   }
+
+  // useEffect(() => {
+
+  // }, [key]);
 
   return (
     // Calendar will always take up its entire container width 
@@ -84,7 +93,8 @@ export default function CalendarDisplay() {
         }
       />
       {dayView && <button onClick={displayModal}>Add Event</button>}
-        <EventIntake selectedDate={selectedDate} selectedEvent={selectedEvent} isNewEvent={isNewEvent} />
+      <EventIntake /*key={key}*/ selectedDate={selectedDate} isNewEvent={isNewEvent} />
+      {/* <EventIntake selectedDate={selectedDate} selectedEvent={selectedEvent} isNewEvent={isNewEvent} /> */}
     </div>
   );
 

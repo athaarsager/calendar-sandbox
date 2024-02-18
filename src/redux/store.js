@@ -8,18 +8,18 @@ const calendarEvents = (state = [], action) => {
     return state;
 }
 
-// const createdEvent = (state = {title: "practice", start: "02-20-2024", startTime: "01:00", endTime: "02:00" }, action) => {
-//     if (action.type === "SET_EVENT") {
-//         //return action.payload;
-//         return state;
-//     } else {
-//     return state; }
-// }
+const selectedEvent = (state = {}, action) => {
+    if (action.type === "SET_EVENT") {
+        return action.payload;
+    }
+    return state;
+}
+
 
 const store = createStore(
     combineReducers({
         calendarEvents,
-        //createdEvent
+        selectedEvent
     })
 );
 
