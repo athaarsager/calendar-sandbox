@@ -21,7 +21,7 @@ export default function CalendarDisplay() {
   const calendarEvents = useSelector(store => store.calendarEvents);
 
   const viewEventDetails = (eventInfo) => {
-    //alert(JSON.stringify(eventInfo.event));
+    alert(JSON.stringify(eventInfo.event));
     setIsNewEvent(false);
     alert(`isNewEvent: ${isNewEvent}`);
     const dialog = document.querySelector("dialog");

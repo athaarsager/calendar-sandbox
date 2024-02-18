@@ -56,10 +56,10 @@ function EventIntake({ selectedDate, isNewEvent }) {
     useEffect(() => {
         setNewEvent({
             title: isNewEvent ? "" : newestEvent.title,
-            start: isNewEvent ? "" : newestEvent.start,
-            end: isNewEvent ? "" : newestEvent.end
+            start: isNewEvent ? "" : newestEvent.start.split("T")[1],
+            end: isNewEvent ? "" : newestEvent.end.split("T")[1]
         });
-        alert("This is the newest event:", JSON.stringify(newestEvent));
+        alert(`This is the newest event:${JSON.stringify(newestEvent)}`);
     }, [isNewEvent]);
 
     return (
