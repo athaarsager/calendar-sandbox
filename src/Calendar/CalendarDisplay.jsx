@@ -6,6 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction"; // need this for date
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import EventIntake from '../EventIntake/EventIntake';
+import EditEvent from '../EditEvent/EditEvent';
 import { useDispatch } from 'react-redux';
 
 
@@ -93,8 +94,10 @@ export default function CalendarDisplay() {
         }
       />
       {dayView && <button onClick={displayModal}>Add Event</button>}
-      <EventIntake /*key={key}*/ selectedDate={selectedDate} isNewEvent={isNewEvent} />
+      <EventIntake /*key={key}*/ selectedDate={selectedDate} />
       {/* <EventIntake selectedDate={selectedDate} selectedEvent={selectedEvent} isNewEvent={isNewEvent} /> */}
+      <EditEvent selectedDate={selectedDate}/>
+      
     </div>
   );
 

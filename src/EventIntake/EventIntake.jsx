@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 
-function EventIntake({ selectedDate, isNewEvent }) {
+function EventIntake({ selectedDate }) {
     const dispatch = useDispatch();
     const createdEvents = useSelector(store => store.calendarEvents);
     const selectedEvent = useSelector(store => store.selectedEvent);
     // Don't use startTime and endTime because those create a recurring event
     const [newEvent, setNewEvent] =  useState({
-        title: isNewEvent ? "" : selectedEvent.title,
-        start: isNewEvent ? "" : selectedEvent.start,
-        end: isNewEvent ? "" : selectedEvent.end
+        title: "",
+        start: "",
+        end: ""
     });
 
     // event object can contain keys such as the following (more can be found at: https://fullcalendar.io/docs/event-parsing ):
@@ -48,18 +48,6 @@ function EventIntake({ selectedDate, isNewEvent }) {
         dialog.close();
     }
 
-    useEffect(() => {
-        alert(`Stringification of selectedEvent.start: ${JSON.stringify(selectedEvent.start)}`);
-        if (Object.keys(selectedEvent).length !== 0) {
-        alert(`This is a portion of the string: ${JSON.stringify(selectedEvent.start).split("T")[1].substring(0, 5)}`)//.split("T")[1].split(".")[0]);
-        setNewEvent({
-            title: isNewEvent ? "" : selectedEvent.title,
-            start: isNewEvent ? "" : JSON.stringify(selectedEvent.start).split("T")[1].substring(0, 5),
-            end: isNewEvent ? "" : JSON.stringify(selectedEvent.end).split("T")[1].substring(0, 5)
-        });
-        alert(`This is the selected event:${JSON.stringify(selectedEvent)}`);
-    }   // This almost fixes it. Takes two clicks, but it does update
-    }, [isNewEvent, selectedEvent]);
 
     return (
         <div>

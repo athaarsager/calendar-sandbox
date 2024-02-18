@@ -80,6 +80,4 @@ function EditEvent({ selectedDate }) {
     );
 }
 
-//{"allDay": false, "title":"Undertale Variations", "start":"2024-02-22T"}
-
 export default EditEvent;
