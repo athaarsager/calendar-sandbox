@@ -103,6 +103,7 @@ function EditEvent({ }) {
                     <input id="end" name="end" type="time" value={editedEvent.end} onChange={handleChange} /><br />
                     <button type="submit">Submit Changes</button>
                     <button type="button">Delete Event</button>
+                    <button type="button">Go to Practice Plan</button>
                 </form>
             </dialog>
         </div>
